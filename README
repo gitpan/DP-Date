@@ -11,25 +11,162 @@ SYNOPSIS
   
 DESCRIPTION
 
+  METHODS
+
+    new
+         $DateObject = DP::Date->new( [ $Date_asString ] )
+
+         index of $DateObject [ blessed array ]
+         0 - date as string
+         1 - date as time() - secs since epoch
+         2 - weekday from local time
+         3 - yearday from local time
+
+    asString
+         $Date_asString = $DateObject->asString( [ $SetDate_asString ] )
+ 
+        Get/Set string-of-numbers formatted value date-time value of
+        $DateObject to $SetDate_asString.
+
+         $Date_asString is string of date numbers without any punctuation,
+        thus having the date-time '2003-12-24 20:00:00' produces date
+        asString '20031224200000'
+
+    asTime
+         $Date_asTime = $DateObject->asTime( [ $setDate_asTime | time ] )
+ 
+        Get/Set date-time value of $DateObject to $setDate_asTime.
+
+         $Date_asTime is compatible with perl's time(), ( eg. seconds
+        elapsed since 1.1.1970? )
+
+    asISO
+         $Date_asISO = $DateObject->asISO( [ $setDate_asISO ] )
+ 
+        Get/Set ISO formatted date-time value of $DateObject to
+        $setDate_asTime.
+
+         $Date_asISO example: 2003-12-24 20:00:00 ( no timezone, no 'T'
+        letter as sometimes used 2003-12-24T20:00:00 )
+
+         # MUST be EXACTLY this format: 2002-12-24 12:34:56 (YYYY-MM-DD hh:mm:ss)
+         # no checking, 2b faster
+ 
+    GetAsISO
+         $Date_asISO = $DateObject->GetAsISO()
+ 
+        Get ISO formatted value of $DateObject to $setDate_asTime. See also
+        asISO() method.
+
+    GetAsArray
+         @Date_array = $DateObject->GetAsISO()
+ 
+        Get array of values of $DateObject to $setDate_asTime, where
+        @Date_array = ( $YYYY, $MM, $DD, $hh, $mm, $ss ) See also asISO()
+        method.
+
+    SetStringAtOffset
+         $Date_asString = $DateObject->SetStringAtOffset( $offset, $newStringValue )
+ 
+        Example: want to change hour value of $DateObject
+
+         my $DateObject = DP::Date->new();
+         $DateObject->SetStringAtOffset( 8, '20' );   # initial date: 2003-12-24 12:34:56
+         $Date_asISO = $DateObject->GetAsISO();       # changed hour: 2003-12-24 20:34:56
+ 
+        Offsets: year...... 0 +4 month..... 4 +2 day....... 6 +2 hour......
+        8 +2 min....... 10 +2 sec....... 12 +2
+
+    Year
+        Get/Set
+
+         $DateObject->Year( [ $YYYY ] )
+
+    Month
+        Get/Set
+
+         $MonthNr = $DateObject->Month( [ $Month_name_as_english_3letters_abbr ] )
+
+    MonthNr
+        Get/Set
+
+         $MonthNr = $DateObject->MonthNr( [ $Month_as_two_digits_based_JAN_eq_01 ] )
+
+    Day Get/Set
+
+         $Day = $DateObject->Day( [ $Day_of_month_as_two_digits ] )
+
+    Hour
+        Get/Set
+
+         $Hour = $DateObject->Hour( [ $Hour_as_two_digits ] )
+
+    Minute
+        Get/Set
+
+         $Minute = $DateObject->Minute( [ $Minute_as_two_digits ] )
+
+    Second
+        Get/Set
+
+         $Second = $DateObject->Second( [ $Second_as_two_digits ] )
+
+    GetWeekDay
+        Get
+
+         $GetWeekDay = $DateObject->GetWeekDay
+
+    GetYearDay
+        Get
+
+         $GetYearDay = $DateObject->GetYearDay
+
+    str2time
+        see source code, sorry
+
+    cmpString
+        see source code, sorry
+
+    isSameDateAs
+        Compare $DateObject with $anotherDateObject
+
+         $bool = $DateObject->isSameDateAs( $anotherDateObject [, $comparingSize ] )
+ 
+         $comparingSize is length of compared date-string .
+
+        see also asString and cmpString methods.
+
+    GetYearMonthBeginTime
+        Get the time-value at which the specified month of the year begins.
+        Very usefull! Values are cached as speed improvement.
+
+         $time_value = $DateObject->GetYearMonthBeginTime( $YYYY_or_YY_string, $MM_string )
+ 
+        see also asTime method.
+
 EXPORT
 
-    nothing
+        nothing
 
 FILES
 
+        none
+
 REVISION
 
-    project started: 2002/06/04
+        project started: 2002/06/04
 
-    $Id: Date.pm_rev 1.3 2003/07/04 14:17:41 root Exp root $
+        $Id: Date.pm_rev 1.6 2003/12/12 11:00:15 root Exp root $
 
 AUTHOR
 
-     Daniel Peder
-     <Daniel.Peder@InfoSet.COM>
-     http://www.infoset.com
-     Czech Republic national-flag: 
-     LeftSideBlueTriangleRightSideHorizontalSplitTopWhiteBottomRed
+         Daniel Peder
+         <Daniel.Peder@InfoSet.COM>
+         http://www.infoset.com
+         Czech Republic national-flag: 
+         LeftSideBlueTriangleRightSideHorizontalSplitTopWhiteBottomRed
 
 SEE ALSO
+
+        other date time modules at CPAN, http://www.CPAN.org
 

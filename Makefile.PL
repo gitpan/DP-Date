@@ -4,7 +4,9 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     'NAME'		=> 'DP::Date',
     'VERSION_FROM'	=> 'Date.pm', # finds $VERSION
-    'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
+    'PREREQ_PM'		=> { # e.g., Module::Name => 1.1
+                         Test::Easy => 1.01,
+	                   },
     ($] >= 5.005 ? (
       # ABSTRACT_FROM => 'Date.pm', 
       AUTHOR     => 'Daniel Peder <Daniel.Peder@infoset.com>',
@@ -19,5 +21,6 @@ README: Date.pm
 
 xdist:
 	[ -f MANIFEST ] && rm -f MANIFEST ; make realclean docs manifest tardist; perl Makefile.PL
+
 
 }; }
